@@ -9,13 +9,8 @@ class Oystercard
   end
 
   def top_up(amount)
-    raise "Top up exceeds maximum" if exceed_limit?
+    raise "Balance exceeds maximum" if amount + @balance > MAXIMUM_BALANCE
+    @balance += amount
+
   end
 end
-
-private
-
-  def exceed_limit?
-    top_up(amount) +n @balance > MAXIMUM_BALANCE
-      @balance += top_up(amount)
-  end
