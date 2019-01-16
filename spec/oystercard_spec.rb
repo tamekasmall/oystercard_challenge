@@ -26,4 +26,13 @@ end
     expect{ subject.deduct(1) }.to change { subject.balance }.by -1
     end
   end
-end
+
+  describe '#in_journey' do
+    it { is_expected.to respond_to( :in_journey?)}
+
+    it 'tells us if in journey' do
+    expect {subject.in_journey?.to be_true}
+    end
+    end
+  end
+
