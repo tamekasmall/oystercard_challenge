@@ -50,4 +50,8 @@ end
       expect(subject.touch_out).to eq(true)
     end
   end
+
+  it "checks if card is in use" do
+    expect(subject.in_use).to eq(false)
+  end
 end
