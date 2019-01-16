@@ -7,9 +7,9 @@ describe Oystercard do
 
   describe '#top_up' do
     it { is_expected.to respond_to( :top_up).with(1).argument }
-  
+
   it 'can top up the balance' do
-  expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
+    expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
   end
 end
 
@@ -23,16 +23,31 @@ end
     it { is_expected.to respond_to( :deduct).with(1).argument }
 
     it 'can deduct a fare from the balance' do
-    expect{ subject.deduct(1) }.to change { subject.balance }.by -1
+      expect{ subject.deduct(1) }.to change { subject.balance }.by -1
     end
   end
+
+  it { is_expected.to respond_to( :in_journey?)}
 
   describe '#in_journey' do
-    it { is_expected.to respond_to( :in_journey?)}
-
     it 'tells us if in journey' do
-    expect {subject.in_journey?.to be_true}
-    end
+      expect(subject.in_journey?).to eq(true)
     end
   end
 
+  it { is_expected.to respond_to( :touch_in)}
+
+  describe '#touch_in' do
+    it 'tells us if touched in' do
+      expect(subject.touch_in).to eq(true)
+    end
+  end
+
+  it { is_expected.to respond_to( :touch_out)}
+
+  describe '#in_journey' do
+    it 'tells us if touched out' do
+      expect(subject.touch_out).to eq(true)
+    end
+  end
+end
