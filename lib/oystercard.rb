@@ -1,6 +1,7 @@
 class Oystercard
 
   MAXIMUM_BALANCE = 90
+  MINIMUM_AMOUNT = 1
 
   attr_reader :balance, :in_use #we want to give the class oystercard the characteristict of having a balance
 
@@ -23,6 +24,8 @@ class Oystercard
   end
 
   def touch_in
+    raise "error" if @balance < MINIMUM_AMOUNT
+    
     @in_journey = true
   end
 

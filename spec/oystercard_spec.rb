@@ -40,20 +40,30 @@ end
 
   describe '#touch_in' do
     it 'tells us if touched in' do
+      subject.instance_variable_set(:@balance, Oystercard::MINIMUM_AMOUNT)
       expect(subject.touch_in).to eq(true)
     end
+    
+    it "raises error when card with insufficient balance is touched in" do
+      subject.instance_variable_set(:@balance, Oystercard::MINIMUM_AMOUNT - 1)
+      expect { subject.touch_in }.to raise_error("error")
+    end
   end
-
+  
   it { is_expected.to respond_to( :touch_out)}
-
+  
   describe '#in_journey' do
     it 'tells us if touched out' do
       expect(subject.touch_out).to eq(true)
     end
   end
-
+  
   it "checks if card is in use" do
+    subject.instance_variable_set(:@balance, Oystercard::MINIMUM_AMOUNT)
     subject.touch_in
     expect(subject.in_journey?).to be true
   end
+
 end
+
+# Write a test to check if error is thrown when card with insufficient balance is touched in
