@@ -6,7 +6,7 @@ class Oystercard
 
   def initialize
     @balance = 0
-    @in_use = false
+    @in_journey = false
   end
 
   def top_up(amount)

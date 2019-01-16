@@ -53,6 +53,6 @@ end
 
   it "checks if card is in use" do
     subject.touch_in
-    expect(subject.in_use).to eq(false)
+    expect(subject.in_use).to eq(true)
   end
 end
