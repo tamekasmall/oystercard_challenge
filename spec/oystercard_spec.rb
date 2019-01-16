@@ -30,9 +30,10 @@ end
   it { is_expected.to respond_to( :in_journey?)}
 
   describe '#in_journey' do
-    it 'tells us if in journey' do
-      expect(subject.in_journey?).to eq(true)
-    end
+    # it 'tells us if in journey' do
+    #   subject.touch_in
+    #   expect(subject.in_journey?).to eq(true)
+    # end
   end
 
   it { is_expected.to respond_to( :touch_in)}
@@ -53,6 +54,6 @@ end
 
   it "checks if card is in use" do
     subject.touch_in
-    expect(subject.in_use).to eq(true)
+    expect(subject.in_journey?).to be true
   end
 end
