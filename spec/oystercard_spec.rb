@@ -9,14 +9,12 @@ describe Oystercard do
     it { is_expected.to respond_to( :top_up).with(1).argument }
 
     it 'can top up the balance' do
-      expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
+      expect{ subject.top_up Oystercard::MINIMUM_AMOUNT }.to change{ subject.balance }.by Oystercard::MINIMUM_AMOUNT
     end
   end
 
   it 'raises an error if top up exceeds limit' do
-    maximum_balance = Oystercard::MAXIMUM_BALANCE
-    subject.top_up(maximum_balance)
-    expect{ subject.top_up(1) }.to raise_error "Balance exceeds maximum"
+    expect{ subject.top_up(Oystercard::MAXIMUM_BALANCE + 1) }.to raise_error "Balance exceeds maximum"
   end
 
   describe '#touch_in' do
@@ -31,16 +29,18 @@ describe Oystercard do
   end
 
   it "checks if card is in use" do
-    subject.top_up(1)
+    subject.top_up(Oystercard::MINIMUM_AMOUNT)
     subject.touch_in
     expect(subject).to be_in_journey
   end
 
   it "to check that a charge is made on touch out" do
-    subject.top_up(1)
+    subject.top_up(Oystercard::MINIMUM_AMOUNT)
     subject.touch_in
-    expect { subject.touch_out }.to change{ subject.balance}.by(-1)
+    expect { subject.touch_out }.to change{ subject.balance }.by( - Oystercard::MINIMUM_AMOUNT)
+    expect(subject).not_to be_in_journey
   end
+
 end
 
 # Write a test to check if error is thrown when card with insufficient balance is touched in
