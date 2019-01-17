@@ -41,17 +41,25 @@ describe Oystercard do
   it "to check that a charge is made on touch out" do
     subject.top_up(Oystercard::MINIMUM_AMOUNT)
     subject.touch_in(station)
-    expect { subject.touch_out }.to change{ subject.balance }.by( - Oystercard::MINIMUM_AMOUNT)
+    expect { subject.touch_out(station) }.to change{ subject.balance }.by( - Oystercard::MINIMUM_AMOUNT)
     expect(subject).not_to be_in_journey
   end
 
-  context 'entry station' do
+  context 'station' do
     it "stores entry station, when touched in" do
       subject.top_up(Oystercard::MINIMUM_AMOUNT)
       subject.touch_in(station)
       expect(subject.entry_station).to eq(station)
     end
+
+    it "stores exit station, when touched out" do
+      subject.top_up(Oystercard::MINIMUM_AMOUNT)
+      subject.touch_in(station)
+      subject.touch_out(station)
+      expect(subject.exit_station).to eq(station)
+    end
   end
+
 end
 
 # Write a test to check if error is thrown when card with insufficient balance is touched in

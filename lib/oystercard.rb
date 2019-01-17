@@ -3,11 +3,12 @@ class Oystercard
   MAXIMUM_BALANCE = 90
   MINIMUM_AMOUNT = 1
 
-  attr_reader :balance, :entry_station #we want to give the class oystercard the characteristict of having a balance
+  attr_reader :balance, :entry_station, :exit_station #we want to give the class oystercard the characteristict of having a balance
 
-  def initialize(balance = 0, entry_station = nil)
+  def initialize(balance = 0, entry_station = nil, exit_station = nil)
     @balance = balance
     @entry_station = entry_station
+    @exit_station = exit_station
   end
 
   def top_up(amount)
@@ -29,9 +30,10 @@ class Oystercard
 
   end
 
-  def touch_out
+  def touch_out(station)
     deduct(MINIMUM_AMOUNT)
     @entry_station = nil
+    @exit_station = station
 
   end
 
