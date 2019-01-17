@@ -5,8 +5,8 @@ class Oystercard
 
   attr_reader :balance, :in_use #we want to give the class oystercard the characteristict of having a balance
 
-  def initialize
-    @balance = 0
+  def initialize(balance = 0)
+    @balance = balance
     @in_journey = false
   end
 
@@ -15,21 +15,25 @@ class Oystercard
     @balance += amount
   end
 
-  def deduct(amount)
-    @balance -= amount
-  end
-
   def in_journey?
     @in_journey
   end
 
+  def deduct(amount)
+    @balance -= amount
+  end
+
   def touch_in
-    raise "error" if @balance < MINIMUM_AMOUNT
-    
+    raise "Error: not enough funds" if @balance < MINIMUM_AMOUNT
+
     @in_journey = true
   end
 
   def touch_out
-    true
+    deduct(MINIMUM_AMOUNT)
   end
+
+  private :deduct
+
+
 end
