@@ -1,5 +1,5 @@
-# Oystercard Challenge
-![Boris Biek JPG](http://i.bnet.com/blogs/london-barclays-cycle-hire-illustration.jpeg)
+# Boris Bikes
+![Boris Bikes JPG](http://i.bnet.com/blogs/london-barclays-cycle-hire-illustration.jpeg)
 __________________________________
 [project description]
 ___________________________________
