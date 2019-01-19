@@ -3,12 +3,12 @@ class Oystercard
   MAXIMUM_BALANCE = 90
   MINIMUM_AMOUNT = 1
 
-  attr_reader :balance, :entry_station, :exit_station #we want to give the class oystercard the characteristict of having a balance
+  attr_reader :balance, :entry_station, :journey #we want to give the class oystercard the characteristict of having a balance
 
-  def initialize(balance = 0, entry_station = nil, exit_station = nil)
+  def initialize(balance = 0)
     @balance = balance
-    @entry_station = entry_station
-    @exit_station = exit_station
+    @entry_station = []
+    @journey = []
   end
 
   def top_up(amount)
@@ -17,24 +17,21 @@ class Oystercard
   end
 
   def in_journey?
-    !!@entry_station #the first ! changes the return to be true /false, but this is the opposite to what we need so another ! is used.
+    @entry_station != []
   end
 
   def deduct(amount)
     @balance -= amount
   end
 
-  def touch_in(station)
+  def touch_in(entry_station)
     raise "Error: not enough funds" if @balance < MINIMUM_AMOUNT
-    @entry_station = station
-
+    @entry_station << entry_station
   end
 
-  def touch_out(station)
+  def touch_out(exit_station)
     deduct(MINIMUM_AMOUNT)
-    @entry_station = nil
-    @exit_station = station
-
+    @journey << { @entry_station.pop => exit_station }
   end
 
   private :deduct
